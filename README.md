@@ -32,6 +32,7 @@ devices.ForEach(devString =>
             shelly.Relays[0].SwitchOff();
             break;
         case "ANY_OTHER":
+            break;
         default:
             break;
     }
