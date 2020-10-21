@@ -1,5 +1,5 @@
 # ShellySharp
-ShellySharp is a object-mapper for shelly.io-devices
+ShellySharp is an object-mapper for shelly.io-devices
 
 Currently these project is in a very early state. Please contact me if you have any suggestions or if you want to me to integrate more devices
 
