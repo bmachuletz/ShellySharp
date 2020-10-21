@@ -14,7 +14,7 @@ Currently these project is in a very early state. Please contact me if you have 
 
 ## Example Code
 ``cs
-            List<string> devices = new List<string> { "http://192.168.178.104", "http://192.168.178.104" };
+            List<string> devices = new List<string> { "http://192.168.178.104", "http://192.168.178.105" };
             devices.ForEach(devString =>
             {
                 string type = ShellySharp.Discover.GetDeviceInformation(devString).Type;
@@ -22,7 +22,7 @@ Currently these project is in a very early state. Please contact me if you have 
                 switch (type)
                 {
                     case "SHSW-25":
-                        Shelly25 shelly = new Shelly25("http://192.168.178.104");
+                        Shelly25 shelly = new Shelly25("devString");
                         shelly.Relays[0].SwitchOn();
                         Thread.Sleep(5000);
                         shelly.Relays[0].SwitchOff();
@@ -31,7 +31,7 @@ Currently these project is in a very early state. Please contact me if you have 
                         Thread.Sleep(5000);
                         shelly.Relays[0].SwitchOff();
                         break;
-                    case "":
+                    case "ANY_OTHER":
                     default:
                         break;
                 }
