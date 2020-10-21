@@ -13,7 +13,7 @@ Currently these project is in a very early state. Please contact me if you have 
 - is available at: https://www.nuget.org/packages/ShellySharp/#
 
 ## Example Code
-```cs
+```csharp
 List<string> devices = new List<string> { "http://192.168.178.104", "http://192.168.178.105" };
 devices.ForEach(devString =>
 {
@@ -36,5 +36,4 @@ devices.ForEach(devString =>
             break;
     }
 });
-
-#sfvefdd
+```
