@@ -17,16 +17,20 @@ namespace TestClient
                 switch (type)
                 {
                     case "SHSW-25":
-                        Shelly25 shelly = new Shelly25("http://192.168.178.104");
+                        Shelly25 shelly = new Shelly25(devString);
                         shelly.Relays[0].SwitchOn();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                        Thread.Sleep(5000);
+                        shelly.Relays[0].SwitchToggle();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                        Thread.Sleep(5000);
+                        shelly.Relays[0].SwitchToggle();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
                         Thread.Sleep(5000);
                         shelly.Relays[0].SwitchOff();
-                        Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchOn();
-                        Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchOff();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
                         break;
-                    case ""
+                    case "ANY_OTHER":
                     default:
                         break;
                 }

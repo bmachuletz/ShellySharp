@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\TestClient\\TestClient.csproj": {}
+    "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\TestClient\\TestClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\ShellySharp\\ShellySharp.csproj": {
+    "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\ShellySharp\\ShellySharp.csproj": {
       "version": "0.0.1",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\ShellySharp\\ShellySharp.csproj",
+        "projectUniqueName": "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\ShellySharp\\ShellySharp.csproj",
         "projectName": "ShellySharp",
-        "projectPath": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\ShellySharp\\ShellySharp.csproj",
+        "projectPath": "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\ShellySharp\\ShellySharp.csproj",
         "packagesPath": "C:\\Users\\1kyg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\ShellySharp\\obj\\",
+        "outputPath": "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\ShellySharp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -66,14 +66,14 @@
         }
       }
     },
-    "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\TestClient\\TestClient.csproj": {
+    "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\TestClient\\TestClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\TestClient\\TestClient.csproj",
+        "projectUniqueName": "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\TestClient\\TestClient.csproj",
         "projectName": "TestClient",
-        "projectPath": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\TestClient\\TestClient.csproj",
+        "projectPath": "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\TestClient\\TestClient.csproj",
         "packagesPath": "C:\\Users\\1kyg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\TestClient\\obj\\",
+        "outputPath": "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\TestClient\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -93,8 +93,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\ShellySharp\\ShellySharp.csproj": {
-                "projectPath": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\ShellySharp\\ShellySharp.csproj"
+              "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\ShellySharp\\ShellySharp.csproj": {
+                "projectPath": "C:\\Users\\1kyg\\source\\repos\\Github\\ShellySharp\\ShellySharp\\ShellySharp.csproj"
               }
             }
           }

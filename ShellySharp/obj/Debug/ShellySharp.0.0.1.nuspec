@@ -16,6 +16,6 @@ This is preAlpha-Version.</releaseNotes>
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Users\1kyg\source\repos\ShellySharp\ShellySharp\bin\Debug\netcoreapp3.1\ShellySharp.dll" target="lib\netcoreapp3.1\ShellySharp.dll" />
+    <file src="C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\bin\Debug\netcoreapp3.1\ShellySharp.dll" target="lib\netcoreapp3.1\ShellySharp.dll" />
   </files>
 </package>

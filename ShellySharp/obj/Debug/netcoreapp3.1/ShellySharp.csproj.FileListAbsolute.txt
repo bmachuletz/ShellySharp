@@ -6,3 +6,12 @@ C:\Users\1kyg\source\repos\ShellySharp\ShellySharp\bin\Debug\netcoreapp3.1\Shell
 C:\Users\1kyg\source\repos\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.dll
 C:\Users\1kyg\source\repos\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.pdb
 C:\Users\1kyg\source\repos\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.csproj.CoreCompileInputs.cache
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\bin\Debug\netcoreapp3.1\ShellySharp.deps.json
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\bin\Debug\netcoreapp3.1\ShellySharp.dll
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\bin\Debug\netcoreapp3.1\ShellySharp.pdb
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.csprojAssemblyReference.cache
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.AssemblyInfoInputs.cache
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.AssemblyInfo.cs
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.csproj.CoreCompileInputs.cache
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.dll
+C:\Users\1kyg\source\repos\Github\ShellySharp\ShellySharp\obj\Debug\netcoreapp3.1\ShellySharp.pdb
