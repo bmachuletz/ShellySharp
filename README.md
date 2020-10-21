@@ -36,5 +36,5 @@ devices.ForEach(devString =>
             break;
     }
 });
-```cs
 
+#sfvefdd
