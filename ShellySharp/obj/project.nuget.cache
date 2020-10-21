@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZzfT3lBw8uNYxx7KBJJb73oC2LRZC60aWkSLNJBlOwOHBmC3Yda4RgLL3hHjB944TFxfzqou5lzJfRc0zpTLcg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\1kyg\\source\\repos\\ShellySharp\\ShellySharp\\ShellySharp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\1kyg\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
