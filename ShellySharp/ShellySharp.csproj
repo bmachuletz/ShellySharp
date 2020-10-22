@@ -5,14 +5,26 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Benjamin Machuletz</Authors>
     <Company>private</Company>
-    <Version>0.0.1</Version>
+    <Version>0.0.1.6</Version>
     <Copyright>2020 by Benjamin Machuletz</Copyright>
     <PackageReleaseNotes>ShellySharp ist a object-mapper for shelly.io-Devices
 This is preAlpha-Version.</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/bmachuletz/ShellySharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bmachuletz/ShellySharp</RepositoryUrl>
+    <Description>ShellySharp is a object-mapper for shelly.io-devices.
+At this time in a very early state.</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

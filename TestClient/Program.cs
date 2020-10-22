@@ -29,6 +29,17 @@ namespace TestClient
                         Thread.Sleep(5000);
                         shelly.Relays[0].SwitchOff();
                         Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                        shelly.Relays[0].SwitchOn();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                        Thread.Sleep(5000);
+                        shelly.Relays[0].SwitchToggle();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                        Thread.Sleep(5000);
+                        shelly.Relays[0].SwitchToggle();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                        Thread.Sleep(5000);
+                        shelly.Relays[0].SwitchOff();
+                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
                         break;
                     case "ANY_OTHER":
                     default:

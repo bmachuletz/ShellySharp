@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ShellySharp.Settings
 {
-    public partial class Relay
+    public partial class Relay : IRelay
     {
         [JsonProperty("name")]
         public object Name { get; set; }
@@ -59,19 +59,32 @@ namespace ShellySharp.Settings
         [JsonProperty("schedule_rules", NullValueHandling = NullValueHandling.Ignore)]
         public object[] ScheduleRules { get; set; }
 
+        public Relay[] Relays { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         [JsonIgnore]
         public ShellyDevice Parent { get; set; }
+        
+        [JsonIgnore]
+        public int Id { get; set; }
 
-        // Relay-Parameter
-        string turn = "turn";
+       // public static Relay FromJson(string json) => JsonConvert.DeserializeObject<Relay>(json);
 
-        public static Relay FromJson(string json) => JsonConvert.DeserializeObject<Relay>(json);
+
+        private void UpdateRelay(object state)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var result = httpClient.GetStringAsync(string.Format("{0}/relay/{1}", Parent.deviceUrl, Id)).Result;
+                RelayTurnResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<RelayTurnResponse>(result);
+                this.Ison = response.Ison;
+            }
+        }
 
         public void SwitchOn()
         {
             using (HttpClient httpClient = new HttpClient())
             { 
-                var result = httpClient.GetStringAsync(string.Format("{0}/relay/0?{1}=on", Parent.deviceUrl, "turn")).Result;
+                var result = httpClient.GetStringAsync(string.Format("{0}/relay/{1}?turn=on", Parent.deviceUrl, Id)).Result;
                 RelayTurnResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<RelayTurnResponse>(result);
                 this.Ison = response.Ison;
             }
@@ -81,7 +94,7 @@ namespace ShellySharp.Settings
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var result = httpClient.GetStringAsync(string.Format("{0}/relay/0?{1}=off", Parent.deviceUrl, "turn")).Result;
+                var result = httpClient.GetStringAsync(string.Format("{0}/relay/{1}?turn=off", Parent.deviceUrl, Id)).Result;
                 RelayTurnResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<RelayTurnResponse>(result);
                 this.Ison = response.Ison;
             }
@@ -91,7 +104,7 @@ namespace ShellySharp.Settings
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var result = httpClient.GetStringAsync(string.Format("{0}/relay/0?{1}=toggle", Parent.deviceUrl, "turn")).Result;
+                var result = httpClient.GetStringAsync(string.Format("{0}/relay/{1}?turn=toggle", Parent.deviceUrl, Id)).Result;
                 RelayTurnResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<RelayTurnResponse>(result);
                 this.Ison = response.Ison;
             }
