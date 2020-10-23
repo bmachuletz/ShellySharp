@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Tmds.MDns" Version="0.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ShellySharp\ShellySharp.csproj" />
   </ItemGroup>
 

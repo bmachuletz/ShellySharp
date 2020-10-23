@@ -1,6 +1,7 @@
 ﻿using ShellySharp;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 
 namespace TestClient
@@ -9,7 +10,19 @@ namespace TestClient
     {
         static void Main(string[] args)
         {
-            List<string> devices = new List<string> { "http://192.168.178.104", "http://192.168.178.104" };
+            /*
+             * Default using the discovery
+             * writing out informations about all shellys found on your network
+             * files will be created in your program folder (be sure that you have the
+             * appropriate permissions, otherwise the program will crash)
+             */
+            ServiceDiscovery discovery = new ServiceDiscovery();
+
+            /*
+             * Using the library as follows
+             * 
+             * 
+            List<string> devices = new List<string> { "http://192.168.178.104"};
             devices.ForEach(devString =>
             {
                 string type = ShellySharp.Discover.GetDeviceInformation(devString).Type;
@@ -21,23 +34,6 @@ namespace TestClient
                         shelly.Relays[0].SwitchOn();
                         Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
                         Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchToggle();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchToggle();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchOff();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        shelly.Relays[0].SwitchOn();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchToggle();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchToggle();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        Thread.Sleep(5000);
                         shelly.Relays[0].SwitchOff();
                         Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
                         break;
@@ -46,6 +42,7 @@ namespace TestClient
                         break;
                 }
             });
+            */
         }
     }
 }
