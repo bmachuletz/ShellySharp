@@ -16,7 +16,10 @@ namespace TestClient
              * files will be created in your program folder (be sure that you have the
              * appropriate permissions, otherwise the program will crash)
              */
-            ServiceDiscovery discovery = new ServiceDiscovery();
+            // ServiceDiscovery discovery = new ServiceDiscovery();
+
+            // Shelly25 dev = new Shelly25("http://192.168.178.104");
+            // dev.SetDeviceMode(ShellySharp.Resources.DeviceMode.relay);
 
             /*
              * Using the library as follows
