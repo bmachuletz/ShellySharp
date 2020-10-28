@@ -49,7 +49,7 @@ namespace ShellySharp
         {
             // we need to garbage collect periodically
             // seems that the static methods from newtonsoft json are filling up the memory
-            gcTimer = new System.Threading.Timer(gcCallback, null, 5000, 10000);
+       //     gcTimer = new System.Threading.Timer(gcCallback, null, 5000, 10000);
 
 
             deviceUrl = url;

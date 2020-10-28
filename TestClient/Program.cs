@@ -18,9 +18,9 @@ namespace TestClient
              */
             // ServiceDiscovery discovery = new ServiceDiscovery();
 
-            // Shelly25 dev = new Shelly25("http://192.168.178.104");
-            // dev.SetDeviceMode(ShellySharp.Resources.DeviceMode.relay);
-
+             Shelly25 dev = new Shelly25("http://192.168.178.104");
+            dev.SetMode(ShellySharp.Resources.DeviceMode.relay);
+            dev.SetFactoryResetFromSwitchEnabled(false);
             /*
              * Using the library as follows
              * 

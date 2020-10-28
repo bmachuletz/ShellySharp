@@ -31,22 +31,22 @@ namespace ShellySharp
         public bool? LedStatusDisable { get; set; }
 
         [JsonProperty("longpush_time", NullValueHandling = NullValueHandling.Ignore)]
-        public long? LongpushTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public long? LongpushTime { get; set; }
 
         public void SetFactoryResetFromSwitchEnabled(bool enable)
         {
-            string statusUrl = string.Format("{0}?factory_reset_from_switch=", settingsUrl, enable.ToString());
+            string statusUrl = string.Format("{0}?factory_reset_from_switch={1}", settingsUrl, enable.ToString());
 
             using (HttpClient httpClient = new HttpClient())
             {
                 var httpResponse = httpClient.GetStringAsync(statusUrl).Result;
-                StatusResponse statusResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<StatusResponse>(httpResponse);
+                SettingsResonse response = Newtonsoft.Json.JsonConvert.DeserializeObject<SettingsResonse>(httpResponse);
             }
         }
 
         public void SetLedStatusDisable(bool disabled)
         {
-            string statusUrl = string.Format("{0}?led_status_disable={0}", settingsUrl, disabled.ToString()); ;
+            string statusUrl = string.Format("{0}?led_status_disable={1}", settingsUrl, disabled.ToString()); ;
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -57,7 +57,7 @@ namespace ShellySharp
 
         public void SetLongPushTime(long pushtime)
         {
-            string statusUrl = string.Format("{0}?longpush_time={0}", settingsUrl, pushtime.ToString()); ;
+            string statusUrl = string.Format("{0}?longpush_time={1}", settingsUrl, pushtime.ToString()); ;
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -70,7 +70,7 @@ namespace ShellySharp
         {
             if (Mode == DeviceMode.roller.ToString())
             {
-                string statusUrl = string.Format("{0}?max_power={0}", settingsUrl, powerInWatts.ToString()); ;
+                string statusUrl = string.Format("{0}?max_power={1}", settingsUrl, powerInWatts.ToString()); ;
 
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -82,7 +82,7 @@ namespace ShellySharp
 
         public void SetMode(DeviceMode mode)
         {
-            string statusUrl = string.Format("{0}?mode={0}", settingsUrl, mode.ToString()); ;
+            string statusUrl = string.Format("{0}?mode={1}", settingsUrl, mode.ToString());
 
             using (HttpClient httpClient = new HttpClient())
             {
