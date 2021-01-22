@@ -34,6 +34,19 @@ devices.ForEach(devString =>
             Thread.Sleep(5000);
             shelly.Relays[0].SwitchOff();
             Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+            
+            break;
+         case "SHDM-2":
+            ShellyDevice shdm2 = new ShellyDimmer2(devString);
+            shdm2.Lights[0].SwitchOff();
+            Console.WriteLine(string.Format("Relay state is: {0}", shdm2.Lights[0].Ison));
+            Console.WriteLine("Press any key");
+            Console.ReadKey();
+            shdm2.Lights[0].SwitchOn();
+            Console.WriteLine(string.Format("Relay state is: {0}", shdm2.Lights[0].Ison));
+            Console.WriteLine("Press any key");
+            Console.ReadKey();
+            
             break;
         case "ANY_OTHER":
         default:
