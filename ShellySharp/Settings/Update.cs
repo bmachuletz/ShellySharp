@@ -18,5 +18,8 @@ namespace ShellySharp.Settings
 
         [JsonProperty("old_version", NullValueHandling = NullValueHandling.Ignore)]
         public string OldVersion { get; set; }
+
+        [JsonProperty("beta_version", NullValueHandling = NullValueHandling.Ignore)]
+        public string BetaVersion { get; set; }
     }
 }

@@ -16,36 +16,67 @@ namespace TestClient
              * files will be created in your program folder (be sure that you have the
              * appropriate permissions, otherwise the program will crash)
              */
-            // ServiceDiscovery discovery = new ServiceDiscovery();
+            //   ServiceDiscovery discovery = new ServiceDiscovery();
 
-             Shelly25 dev = new Shelly25("http://192.168.178.104");
-            dev.SetMode(ShellySharp.Resources.DeviceMode.relay);
-            dev.SetFactoryResetFromSwitchEnabled(false);
-            /*
-             * Using the library as follows
-             * 
-             * 
-            List<string> devices = new List<string> { "http://192.168.178.104"};
-            devices.ForEach(devString =>
-            {
-                string type = ShellySharp.Discover.GetDeviceInformation(devString).Type;
 
-                switch (type)
-                {
-                    case "SHSW-25":
-                        Shelly25 shelly = new Shelly25(devString);
-                        shelly.Relays[0].SwitchOn();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        Thread.Sleep(5000);
-                        shelly.Relays[0].SwitchOff();
-                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                        break;
-                    case "ANY_OTHER":
-                    default:
-                        break;
-                }
-            });
+
+            // Shelly25 dev = new Shelly25("http://192.168.178.104");
+            //  dev.SetMode(ShellySharp.Resources.DeviceMode.relay);
+            //   dev.SetFactoryResetFromSwitchEnabled(false);
+
+            /* Using the library as follows
+            * 
             */
+            List<ShellyDevice> shellys = new List<ShellyDevice>();
+           List<string> devices = new List<string> { "http://192.168.178.104", "http://192.168.178.61", "http://192.168.178.44", "http://192.168.178.55", "http://192.168.178.42" };
+           devices.ForEach(devString =>
+           {
+               string type = ShellySharp.Discover.GetDeviceInformation(devString).Type;
+
+               switch (type)
+               {
+                   case "SHSW-25":
+                       ShellyDevice shelly = new Shelly25(devString);
+                       shellys.Add(shelly);
+                       /*  shelly.Relays[0].SwitchOn();
+                       Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                       Thread.Sleep(5000);
+                       shelly.Relays[0].SwitchOff();
+                       Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                       */
+
+                       break;
+                      
+                   case "SHDM-2":
+                       
+                       ShellyDevice shdm2 = new ShellyDimmer2(devString);
+                       shellys.Add(shdm2);
+                       /*   Console.WriteLine("Press any key");
+                          Console.ReadKey();
+                          shdm2.Lights[0].SwitchOff();
+                          Console.WriteLine("Press any key");
+                          Console.ReadKey();
+                          shdm2.Lights[0].SwitchOn();
+                          //Console.WriteLine(string.Format("Relay state is: {0}", shdm2.Relays[0].Ison));
+                          //    Thread.Sleep(5000);
+                          //  //shelly.Relays[0].SwitchOff();
+                          //     Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+                       */
+                       break;
+
+                   case "SHSW-L":
+
+                       break;
+
+                   case "ANY_OTHER":
+                   default:
+                       break;
+               }
+           });
+
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
+           
         }
     }
 }

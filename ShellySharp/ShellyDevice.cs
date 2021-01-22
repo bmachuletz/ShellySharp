@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -19,7 +20,7 @@ namespace ShellySharp
         public string deviceUrl;
 
         [JsonIgnore]
-        public string settingsUrl, deviceInformationUrl;
+        public string settingsUrl, deviceInformationUrl, otaStatusUrl;
 
         System.Threading.Timer gcTimer;
 
@@ -34,6 +35,9 @@ namespace ShellySharp
 
         [JsonProperty("cloud", NullValueHandling = NullValueHandling.Ignore)]
         public WifiAp wifiap { get; set; }
+
+        [JsonProperty("ota", NullValueHandling = NullValueHandling.Ignore)]
+        public Update ota { get; set; }
 
         //      [JsonProperty("rollers", NullValueHandling = NullValueHandling.Ignore)]
 
@@ -54,6 +58,7 @@ namespace ShellySharp
 
             deviceUrl = url;
 
+            otaStatusUrl= string.Format("{0}/ota", deviceUrl);
             settingsUrl = string.Format("{0}/settings", deviceUrl);
             deviceInformationUrl = string.Format("{0}/shelly", deviceUrl);
 
@@ -84,22 +89,47 @@ namespace ShellySharp
             using (HttpClient httpClient = new HttpClient())
             {
                 var httpResponse = httpClient.GetStringAsync(settingsUrl).Result;
-                ShellyDevice dev = Newtonsoft.Json.JsonConvert.DeserializeObject<Shelly25>(httpResponse);
 
+
+                string deviceTypeString = (string)Newtonsoft.Json.Linq.JObject.Parse(httpResponse).SelectToken("$.device.type");
+
+                ShellyDevice shellyDevice;
+
+                
+                switch(deviceTypeString)
+                {
+                    case "SHSW-25":
+                        shellyDevice = new Shelly25();
+                        shellyDevice = Newtonsoft.Json.JsonConvert.DeserializeObject<Shelly25>(httpResponse);
+                        break;
+                    case "SHDM-2":
+                        shellyDevice = new ShellyDimmer2();
+                        shellyDevice = Newtonsoft.Json.JsonConvert.DeserializeObject<ShellyDimmer2>(httpResponse);
+                        break;
+                    default:
+                        shellyDevice = null;
+                        break;
+                        
+                }
+                
                 // remove the dynamic
-                dynamic deviceInformation = (Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(httpResponse)).device;
+                dynamic deviceInformation = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(httpResponse).device;
 
-                dev.GetType().GetProperties().ToList().ForEach(property =>
+                shellyDevice.GetType().GetProperties().ToList().ForEach(property =>
                 {
                     if (this.GetType().GetProperty(property.Name) != null)
                     {
-                        var val = dev.GetType().GetProperty(property.Name).GetValue(dev);
+                        var val = shellyDevice.GetType().GetProperty(property.Name).GetValue(shellyDevice);
                         this.GetType().GetProperty(property.Name).SetValue(this, val);
                     }
                 });
 
                 this.Type = deviceInformation.type;
                 this.Mac = deviceInformation.mac;
+
+                httpResponse = httpClient.GetStringAsync(otaStatusUrl).Result;
+                this.ota = Newtonsoft.Json.JsonConvert.DeserializeObject<Update>(httpResponse);
+
             }
         }
     }
