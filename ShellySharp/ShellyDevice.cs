@@ -84,6 +84,18 @@ namespace ShellySharp
         }
 
 
+        // Update from specific url and beta url will be supported someday
+        void UpdateFirmware()
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var httpResponse = httpClient.GetStringAsync(string.Format("{0}/update=true", otaStatusUrl)).Result;
+
+                this.ota = Newtonsoft.Json.JsonConvert.DeserializeObject<Update>(httpResponse);
+            }
+        }
+
+
         private void InitialUpdateSettings()
         {
             using (HttpClient httpClient = new HttpClient())
