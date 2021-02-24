@@ -11,6 +11,7 @@ namespace ShellySharp
     public partial class Shelly25 : ShellySwitch, IRelays, ISwitch
     {
         public event EventHandler RelaysLoaded;
+        public event EventHandler<RelaySwitchedEventArgs> RelaySwitched;
 
         [JsonProperty("relays", NullValueHandling = NullValueHandling.Ignore)]
         public List<Relay> Relays { get; set; }
@@ -52,12 +53,22 @@ namespace ShellySharp
                     var httpResponse = httpClient.GetStringAsync(relayUrl).Result;
                     
 
-                    Relays[x] = JsonConvert.DeserializeObject<Relay>(httpResponse);
+                    Relay rel = JsonConvert.DeserializeObject<Relay>(httpResponse);
+                    if (rel.Ison != Relays[x].Ison)
+                    {
+                        RelaySwitched?.Invoke(this, new RelaySwitchedEventArgs { Device = this, IsOn = rel.Ison });
+                        Relays[x].Ison = rel.Ison;
+                    }
+                 //   Relays[x] = rel;
                     Relays[x].Parent = this;
                     Relays[x].Id = x;
+
+                 
+                        Console.WriteLine("Relays updated");
+                
                 }
 
-                Console.WriteLine("Relays updated");
+                
             }
         }
     }

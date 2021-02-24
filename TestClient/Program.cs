@@ -16,7 +16,7 @@ namespace TestClient
              * files will be created in your program folder (be sure that you have the
              * appropriate permissions, otherwise the program will crash)
              */
-            //   ServiceDiscovery discovery = new ServiceDiscovery();
+           //   ServiceDiscovery discovery = new ServiceDiscovery();
 
 
 
@@ -36,7 +36,8 @@ namespace TestClient
                switch (type)
                {
                    case "SHSW-25":
-                       ShellyDevice shelly = new Shelly25(devString);
+                       Shelly25 shelly = new Shelly25(devString);
+                       shelly.RelaySwitched += Shelly_RelaySwitched;
                        shellys.Add(shelly);
                        /*  shelly.Relays[0].SwitchOn();
                        Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
@@ -77,6 +78,11 @@ namespace TestClient
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
            
+        }
+
+        private static void Shelly_RelaySwitched(object sender, RelaySwitchedEventArgs e)
+        {
+            Console.WriteLine("Relay wurde auf '{0}' gestellt.", e.IsOn);
         }
     }
 }

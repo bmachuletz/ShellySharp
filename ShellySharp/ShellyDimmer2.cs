@@ -24,7 +24,7 @@ namespace ShellySharp
         {
             ShellyDimmer2_DeviceLoaded(this, null);
             
-            updateLightTimer = new System.Threading.Timer(UpdateLights, null, 5000, 1000);
+            updateLightTimer = new System.Threading.Timer(UpdateLights, null, 5000, 1500);
         }
 
         private void ShellyDimmer2_DeviceLoaded(object sender, EventArgs e)
@@ -49,13 +49,14 @@ namespace ShellySharp
                     string relayUrl = string.Format("{0}/settings/light/{1}", deviceUrl, x);
                     var httpResponse = httpClient.GetStringAsync(relayUrl).Result;
 
-
                     Lights[x] = JsonConvert.DeserializeObject<Light>(httpResponse);
                     Lights[x].Parent = this;
                     Lights[x].Id = x;
+
+                    Console.WriteLine("Lights updated");
                 }
 
-                Console.WriteLine("Lights updated");
+
             }
         }
     }
