@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -12,6 +13,35 @@ using ShellySharp.Settings;
 
 namespace ShellySharp
 {
+
+    static class extentions
+    {
+        public static List<Variance> DetailedCompare<T>(this T val1, T val2)
+        {
+            List<Variance> variances = new List<Variance>();
+            FieldInfo[] fi = val1.GetType().GetFields();
+            foreach (FieldInfo f in fi)
+            {
+                Variance v = new Variance();
+                v.Prop = f.Name;
+                v.valA = f.GetValue(val1);
+                v.valB = f.GetValue(val2);
+                if (!v.valA.Equals(v.valB))
+                    variances.Add(v);
+
+            }
+            return variances;
+        }
+
+
+    }
+    class Variance
+    {
+        public string Prop { get; set; }
+        public object valA { get; set; }
+        public object valB { get; set; }
+    }
+
     public abstract partial class ShellyDevice
     {
         public event EventHandler DeviceLoaded;
@@ -41,6 +71,9 @@ namespace ShellySharp
 
         //      [JsonProperty("rollers", NullValueHandling = NullValueHandling.Ignore)]
 
+
+
+       
 
         protected virtual void OnDeviceLoaded(EventArgs e)
         {

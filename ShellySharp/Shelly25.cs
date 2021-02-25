@@ -28,7 +28,7 @@ namespace ShellySharp
         {
             Shelly25_DeviceLoaded(this, null);
             
-            updateRelayTimer = new System.Threading.Timer(UpdateRelays, null, 5000, 1000);
+            updateRelayTimer = new System.Threading.Timer(UpdateRelays, null, 5000, 3000);
         }
 
         private void Shelly25_DeviceLoaded(object sender, EventArgs e)
@@ -54,21 +54,31 @@ namespace ShellySharp
                     
 
                     Relay rel = JsonConvert.DeserializeObject<Relay>(httpResponse);
+
+                    List<Variance> variances = rel.DetailedCompare(Relays[x]);
+
+                    variances.ForEach(variance =>
+                    {
+                        Console.WriteLine("Property {0} changed from {1} to {2}.", variance.Prop, variance.valB, variance.valA);
+                        Relays[x].GetType().GetProperty(variance.Prop).SetValue(Relays[x], variance.valA);
+
+                        if(variance.Prop.Equals("Ison"))
+                        {
+                            RelaySwitched?.Invoke(this, new RelaySwitchedEventArgs { Device = this, IsOn = rel.Ison });
+                        }
+                    });
+
+                    /*
                     if (rel.Ison != Relays[x].Ison)
                     {
-                        RelaySwitched?.Invoke(this, new RelaySwitchedEventArgs { Device = this, IsOn = rel.Ison });
+
                         Relays[x].Ison = rel.Ison;
                     }
-                 //   Relays[x] = rel;
+                    */
+               //   Relays[x] = rel;
                     Relays[x].Parent = this;
                     Relays[x].Id = x;
-
-                 
-                        Console.WriteLine("Relays updated");
-                
                 }
-
-                
             }
         }
     }

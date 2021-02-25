@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Benjamin Machuletz</Authors>
     <Company>private</Company>
-    <Version>0.0.1.8</Version>
+    <Version>0.0.1.9</Version>
     <Copyright>2020 by Benjamin Machuletz</Copyright>
     <PackageReleaseNotes>ShellySharp ist a object-mapper for shelly.io-Devices
 This is preAlpha-Version.</PackageReleaseNotes>
