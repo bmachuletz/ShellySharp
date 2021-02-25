@@ -11,7 +11,7 @@ namespace ShellySharp
     public partial class Shelly25 : ShellySwitch, IRelays, ISwitch
     {
         public event EventHandler RelaysLoaded;
-        public event EventHandler<RelaySwitchedEventArgs> RelaySwitched;
+        public event EventHandler<DeviceSwitchedEventArgs> RelaySwitched;
 
         [JsonProperty("relays", NullValueHandling = NullValueHandling.Ignore)]
         public List<Relay> Relays { get; set; }
@@ -67,7 +67,7 @@ namespace ShellySharp
 
                             if (variance.Prop.Equals("Ison"))
                             {
-                                RelaySwitched?.Invoke(this, new RelaySwitchedEventArgs { Device = this, IsOn = rel.Ison });
+                                RelaySwitched?.Invoke(this, new DeviceSwitchedEventArgs { Device = this, IsOn = rel.Ison });
                             }
                         }
                     });

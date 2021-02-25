@@ -11,6 +11,7 @@ namespace ShellySharp
     public partial class ShellyDimmer2 : ShellySwitch, ILights
     {
         public event EventHandler RelaysLoaded;
+        public event EventHandler<DeviceSwitchedEventArgs> LightSwitched;
 
         [JsonIgnore]
         System.Threading.Timer updateLightTimer;
@@ -24,7 +25,7 @@ namespace ShellySharp
         {
             ShellyDimmer2_DeviceLoaded(this, null);
             
-            updateLightTimer = new System.Threading.Timer(UpdateLights, null, 5000, 1500);
+            updateLightTimer = new System.Threading.Timer(UpdateLights, null, 5000, 2000);
         }
 
         private void ShellyDimmer2_DeviceLoaded(object sender, EventArgs e)
@@ -49,14 +50,31 @@ namespace ShellySharp
                     string relayUrl = string.Format("{0}/settings/light/{1}", deviceUrl, x);
                     var httpResponse = httpClient.GetStringAsync(relayUrl).Result;
 
-                    Lights[x] = JsonConvert.DeserializeObject<Light>(httpResponse);
+                    Light light = JsonConvert.DeserializeObject<Light>(httpResponse);
+
+
+                    List < Variance > variances = light.DetailedCompare(Lights[x]);
+
+                    variances.ForEach(variance =>
+                    {
+                        Console.WriteLine("Property {0} changed from {1} to {2}.", variance.Prop, variance.valB, variance.valA);
+
+                        if (variance.valA != null && variance.valB != null)
+                        {
+                            Lights[x].GetType().GetProperty(variance.Prop).SetValue(Lights[x], variance.valA);
+
+                            if (variance.Prop.Equals("Ison"))
+                            {
+                                LightSwitched?.Invoke(this, new DeviceSwitchedEventArgs { Device = this, IsOn = light.Ison });
+                            }
+                        }
+                    });
+
                     Lights[x].Parent = this;
                     Lights[x].Id = x;
 
-                    Console.WriteLine("Lights updated");
+//                    Console.WriteLine("Lights updated");
                 }
-
-
             }
         }
     }

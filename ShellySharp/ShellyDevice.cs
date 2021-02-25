@@ -26,7 +26,7 @@ namespace ShellySharp
                 {
                     Variance v = new Variance();
 
-                    if (f.Name != "SyncRoot" & f.Name != "Id")
+                    if (f.Name != "SyncRoot" & f.Name != "Id" & f.Name != "Item")
                     {
                         v.Prop = f.Name;
                         v.valA = f.GetValue(val1);
@@ -51,12 +51,6 @@ namespace ShellySharp
                             }
 
                         }
-                        /*
-                        if (v.valA != v.valB)
-                        {
-                            variances.Add(v);
-                        }
-                        */
                     }
                 }
 
@@ -99,11 +93,6 @@ namespace ShellySharp
         [JsonProperty("ota", NullValueHandling = NullValueHandling.Ignore)]
         public Update ota { get; set; }
 
-        //      [JsonProperty("rollers", NullValueHandling = NullValueHandling.Ignore)]
-
-
-
-       
 
         protected virtual void OnDeviceLoaded(EventArgs e)
         {

@@ -80,7 +80,7 @@ namespace TestClient
            
         }
 
-        private static void Shelly_RelaySwitched(object sender, RelaySwitchedEventArgs e)
+        private static void Shelly_RelaySwitched(object sender, DeviceSwitchedEventArgs e)
         {
             Console.WriteLine("Relay wurde auf '{0}' gestellt.", e.IsOn);
         }
