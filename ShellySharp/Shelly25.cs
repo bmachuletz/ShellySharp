@@ -28,7 +28,7 @@ namespace ShellySharp
         {
             Shelly25_DeviceLoaded(this, null);
             
-            updateRelayTimer = new System.Threading.Timer(UpdateRelays, null, 5000, 3000);
+            updateRelayTimer = new System.Threading.Timer(UpdateRelays, null, 5000, 2000);
         }
 
         private void Shelly25_DeviceLoaded(object sender, EventArgs e)
@@ -60,11 +60,15 @@ namespace ShellySharp
                     variances.ForEach(variance =>
                     {
                         Console.WriteLine("Property {0} changed from {1} to {2}.", variance.Prop, variance.valB, variance.valA);
-                        Relays[x].GetType().GetProperty(variance.Prop).SetValue(Relays[x], variance.valA);
 
-                        if(variance.Prop.Equals("Ison"))
+                        if (variance.valA != null && variance.valB != null)
                         {
-                            RelaySwitched?.Invoke(this, new RelaySwitchedEventArgs { Device = this, IsOn = rel.Ison });
+                            Relays[x].GetType().GetProperty(variance.Prop).SetValue(Relays[x], variance.valA);
+
+                            if (variance.Prop.Equals("Ison"))
+                            {
+                                RelaySwitched?.Invoke(this, new RelaySwitchedEventArgs { Device = this, IsOn = rel.Ison });
+                            }
                         }
                     });
 

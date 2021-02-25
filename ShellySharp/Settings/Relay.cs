@@ -59,7 +59,7 @@ namespace ShellySharp.Settings
         [JsonProperty("schedule_rules", NullValueHandling = NullValueHandling.Ignore)]
         public object[] ScheduleRules { get; set; }
 
-        public Relay[] Relays { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Relay[] Relays { get; set; }
 
         [JsonIgnore]
         public ShellyDevice Parent { get; set; }

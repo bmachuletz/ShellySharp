@@ -19,22 +19,52 @@ namespace ShellySharp
         public static List<Variance> DetailedCompare<T>(this T val1, T val2)
         {
             List<Variance> variances = new List<Variance>();
-            FieldInfo[] fi = val1.GetType().GetFields();
-            foreach (FieldInfo f in fi)
+            if (val1 != null && val2 != null)
             {
-                Variance v = new Variance();
-                v.Prop = f.Name;
-                v.valA = f.GetValue(val1);
-                v.valB = f.GetValue(val2);
-                if (!v.valA.Equals(v.valB))
-                    variances.Add(v);
+                PropertyInfo[] pi = val1.GetType().GetProperties();
+                foreach (PropertyInfo f in pi)
+                {
+                    Variance v = new Variance();
+
+                    if (f.Name != "SyncRoot" & f.Name != "Id")
+                    {
+                        v.Prop = f.Name;
+                        v.valA = f.GetValue(val1);
+                        v.valB = f.GetValue(val2);
+
+                        if (v.valA != null)
+                        {
+                            if (!v.Prop.Equals("ScheduleRules"))
+                            {
+                                if (!v.valA.Equals(v.valB))
+                                {
+                                    variances.Add(v);
+                                }
+                            }
+                            else
+                            {
+                                v.valA.DetailedCompare(v.valB).ForEach(v =>
+                                {
+                                    variances.Add(v);
+                                });
+
+                            }
+
+                        }
+                        /*
+                        if (v.valA != v.valB)
+                        {
+                            variances.Add(v);
+                        }
+                        */
+                    }
+                }
 
             }
             return variances;
         }
-
-
     }
+
     class Variance
     {
         public string Prop { get; set; }
