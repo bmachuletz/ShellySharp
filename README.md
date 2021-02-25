@@ -42,7 +42,7 @@ devices.ForEach(devString =>
             
             break;
          case "SHDM-2":
-            ShellyDevice shdm2 = new ShellyDimmer2(devString);
+            ShellyDimmer2 shdm2 = new ShellyDimmer2(devString);
             shelly.LightSwitched += Shelly_DeviceSwitched;
             
             shdm2.Lights[0].SwitchOff();
