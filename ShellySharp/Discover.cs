@@ -18,6 +18,10 @@ namespace ShellySharp
             using (HttpClient httpClient = new HttpClient())
             {
                 devClass = Newtonsoft.Json.JsonConvert.DeserializeObject<DeviceClass>(httpClient.GetStringAsync(shellyInformationUrl).Result);
+                if(devClass.Type == null)
+                {
+                    devClass.Type = devClass.Model;
+                }
             }
 
             return devClass;

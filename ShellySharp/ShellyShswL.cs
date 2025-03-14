@@ -8,7 +8,7 @@ using ShellySharp.Interfaces;
 
 namespace ShellySharp
 {
-    public partial class Shelly25 : ShellySwitch, IRelays, ISwitch
+    public partial class ShellyShswL : ShellySwitch, IRelays, ISwitch
     {
         public event EventHandler RelaysLoaded;
         public event EventHandler<DeviceSwitchedEventArgs> RelaySwitched;
@@ -22,16 +22,16 @@ namespace ShellySharp
         [JsonIgnore]
         System.Threading.Timer updateRelayTimer;
 
-        public Shelly25() : base() { }
+        public ShellyShswL() : base() { }
 
-        public Shelly25(string url) : base(url)
+        public ShellyShswL(string url) : base(url)
         {
-            Shelly25_DeviceLoaded(this, null);
+            ShellyShswL_DeviceLoaded(this, null);
             
             updateRelayTimer = new System.Threading.Timer(UpdateRelays, null, 5000, 2000);
         }
 
-        private void Shelly25_DeviceLoaded(object sender, EventArgs e)
+        private void ShellyShswL_DeviceLoaded(object sender, EventArgs e)
         {
             UpdateRelays(null);
         }
@@ -90,7 +90,7 @@ namespace ShellySharp
             catch (Exception ex)
             {
                 Console.WriteLine("================================================================================================");
-                Console.WriteLine("Can`t Updates Lights");
+                Console.WriteLine("Can`t Updates Relay");
                 Console.WriteLine(ex.ToString());
                 Console.WriteLine("================================================================================================");
             }
@@ -98,7 +98,7 @@ namespace ShellySharp
     }
 
 
-    public partial class Shelly25
+    public partial class ShellyShswL
     {
         public static ShellyDevice FromJson(string json) => JsonConvert.DeserializeObject<ShellyDevice>(json, ShellySharp.Converter.Settings);
     }

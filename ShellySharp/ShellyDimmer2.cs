@@ -25,7 +25,7 @@ namespace ShellySharp
         {
             ShellyDimmer2_DeviceLoaded(this, null);
             
-            updateLightTimer = new System.Threading.Timer(UpdateLights, null, 5000, 2000);
+            updateLightTimer = new System.Threading.Timer(UpdateLights, null, 5000, 5000);
         }
 
         private void ShellyDimmer2_DeviceLoaded(object sender, EventArgs e)
@@ -43,39 +43,50 @@ namespace ShellySharp
 
         public void UpdateLights(object state)
         {
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                for (int x = 0; x < Lights.Count(); x++)
+                using (HttpClient httpClient = new HttpClient())
                 {
-                    string relayUrl = string.Format("{0}/settings/light/{1}", deviceUrl, x);
-                    var httpResponse = httpClient.GetStringAsync(relayUrl).Result;
-
-                    Light light = JsonConvert.DeserializeObject<Light>(httpResponse);
-
-
-                    List < Variance > variances = light.DetailedCompare(Lights[x]);
-
-                    variances.ForEach(variance =>
+                    for (int x = 0; x < Lights.Count(); x++)
                     {
-                        Console.WriteLine("Property {0} changed from {1} to {2}.", variance.Prop, variance.valB, variance.valA);
+                        string relayUrl = string.Format("{0}/settings/light/{1}", deviceUrl, x);
+                        var httpResponse = httpClient.GetStringAsync(relayUrl).Result;
 
-                        if (variance.valA != null && variance.valB != null)
+                        Light light = JsonConvert.DeserializeObject<Light>(httpResponse);
+
+
+                        List<Variance> variances = light.DetailedCompare(Lights[x]);
+
+                        variances.ForEach(variance =>
                         {
-                            Lights[x].GetType().GetProperty(variance.Prop).SetValue(Lights[x], variance.valA);
+                            Console.WriteLine("Property {0} changed from {1} to {2}.", variance.Prop, variance.valB, variance.valA);
 
-                            if (variance.Prop.Equals("Ison"))
+                            if (variance.valA != null && variance.valB != null)
                             {
-                                LightSwitched?.Invoke(this, new DeviceSwitchedEventArgs { Device = this, IsOn = light.Ison });
+                                Lights[x].GetType().GetProperty(variance.Prop).SetValue(Lights[x], variance.valA);
+
+                                if (variance.Prop.Equals("Ison"))
+                                {
+                                    LightSwitched?.Invoke(this, new DeviceSwitchedEventArgs { Device = this, IsOn = light.Ison });
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    Lights[x].Parent = this;
-                    Lights[x].Id = x;
+                        Lights[x].Parent = this;
+                        Lights[x].Id = x;
 
-//                    Console.WriteLine("Lights updated");
+                        //                    Console.WriteLine("Lights updated");
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine("================================================================================================");
+                Console.WriteLine("Can`t Updates Lights");
+                Console.WriteLine(ex.ToString());
+                Console.WriteLine("================================================================================================");
+            }
+            
         }
     }
 

@@ -1,14 +1,17 @@
 ﻿using ShellySharp;
+using ShellySharp.v3;
+
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace TestClient
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             /*
              * Default using the discovery
@@ -16,7 +19,7 @@ namespace TestClient
              * files will be created in your program folder (be sure that you have the
              * appropriate permissions, otherwise the program will crash)
              */
-           //   ServiceDiscovery discovery = new ServiceDiscovery();
+            //   ServiceDiscovery discovery = new ServiceDiscovery();
 
 
 
@@ -27,56 +30,71 @@ namespace TestClient
             /* Using the library as follows
             * 
             */
-            List<ShellyDevice> shellys = new List<ShellyDevice>();
-           List<string> devices = new List<string> { "http://192.168.178.104", "http://192.168.178.61", "http://192.168.178.44", "http://192.168.178.55", "http://192.168.178.42" };
-           devices.ForEach(devString =>
-           {
-               string type = ShellySharp.Discover.GetDeviceInformation(devString).Type;
+          
 
-               switch (type)
-               {
-                   case "SHSW-25":
-                       Shelly25 shelly = new Shelly25(devString);
-                       shelly.RelaySwitched += Shelly_RelaySwitched;
-                       shellys.Add(shelly);
-                       /*  shelly.Relays[0].SwitchOn();
-                       Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                       Thread.Sleep(5000);
-                       shelly.Relays[0].SwitchOff();
-                       Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                       */
+            var device = await ShellyDeviceFactory.CreateDeviceAsync("192.168.178.101");
+            Console.WriteLine($"Gerätetyp erkannt: {device.GetType().Name}");
 
-                       break;
-                      
-                   case "SHDM-2":
-                       
-                       ShellyDevice shdm2 = new ShellyDimmer2(devString);
-                       shellys.Add(shdm2);
-                       /*   Console.WriteLine("Press any key");
-                          Console.ReadKey();
-                          shdm2.Lights[0].SwitchOff();
-                          Console.WriteLine("Press any key");
-                          Console.ReadKey();
-                          shdm2.Lights[0].SwitchOn();
-                          //Console.WriteLine(string.Format("Relay state is: {0}", shdm2.Relays[0].Ison));
-                          //    Thread.Sleep(5000);
-                          //  //shelly.Relays[0].SwitchOff();
-                          //     Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
-                       */
-                       break;
+            // Initialisiere den WebSocket-Listener für Echtzeitupdates.
+            await device.InitializeStatusListenerAsync();
 
-                   case "SHSW-L":
+            await device.Switches[0].ToggleAsync();
+            Thread.Sleep(3000);
+            await device.Switches[0].ToggleAsync();
 
-                       break;
 
-                   case "ANY_OTHER":
-                   default:
-                       break;
-               }
-           });
+
+            // List<ShellyDevice> shellys = new List<ShellyDevice>();
+            //List<string> devices = new List<string> { "http://192.168.178.104", "http://192.168.178.61", "http://192.168.178.44", "http://192.168.178.55", "http://192.168.178.42" };
+            //devices.ForEach(devString =>
+            //{
+            //    string type = ShellySharp.Discover.GetDeviceInformation(devString).Type;
+
+            //    switch (type)
+            //    {
+            //        case "SHSW-25":
+            //            Shelly25 shelly = new Shelly25(devString);
+            //            shelly.RelaySwitched += Shelly_RelaySwitched;
+            //            shellys.Add(shelly);
+            //            /*  shelly.Relays[0].SwitchOn();
+            //            Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+            //            Thread.Sleep(5000);
+            //            shelly.Relays[0].SwitchOff();
+            //            Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+            //            */
+
+            //            break;
+
+            //        case "SHDM-2":
+
+            //            ShellyDevice shdm2 = new ShellyDimmer2(devString);
+            //            shellys.Add(shdm2);
+            //            /*   Console.WriteLine("Press any key");
+            //               Console.ReadKey();
+            //               shdm2.Lights[0].SwitchOff();
+            //               Console.WriteLine("Press any key");
+            //               Console.ReadKey();
+            //               shdm2.Lights[0].SwitchOn();
+            //               //Console.WriteLine(string.Format("Relay state is: {0}", shdm2.Relays[0].Ison));
+            //               //    Thread.Sleep(5000);
+            //               //  //shelly.Relays[0].SwitchOff();
+            //               //     Console.WriteLine(string.Format("Relay state is: {0}", shelly.Relays[0].Ison));
+            //            */
+            //            break;
+
+            //        case "SHSW-L":
+
+            //            break;
+
+            //        case "ANY_OTHER":
+            //        default:
+            //            break;
+            //    }
+            //});
 
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
+
            
         }
 

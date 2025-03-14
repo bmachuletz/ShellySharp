@@ -15,5 +15,8 @@ namespace ShellySharp
 
         [JsonProperty("hostname", NullValueHandling = NullValueHandling.Ignore)]
         public string Hostname { get; set; }
+
+        [JsonProperty("model", NullValueHandling = NullValueHandling.Ignore)]
+        public string Model { get; set; }
     }
 }

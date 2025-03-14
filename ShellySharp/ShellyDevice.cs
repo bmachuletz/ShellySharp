@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
-using Microsoft.VisualBasic;
 using Newtonsoft.Json;
-using ShellySharp.Resources;
 using ShellySharp.Settings;
 
 namespace ShellySharp
@@ -83,6 +78,9 @@ namespace ShellySharp
 
         [JsonProperty("mac", NullValueHandling = NullValueHandling.Ignore)]
         public string Mac { get; set; }
+
+        [JsonProperty("hostname", NullValueHandling = NullValueHandling.Ignore)]
+        public string Hostname { get; set; }
 
         [JsonProperty("wifi_sta", NullValueHandling = NullValueHandling.Ignore)]
         public WifiSta wifista { get; set; }
@@ -169,6 +167,16 @@ namespace ShellySharp
                         shellyDevice = new ShellyDimmer2();
                         shellyDevice = Newtonsoft.Json.JsonConvert.DeserializeObject<ShellyDimmer2>(httpResponse);
                         break;
+                    case "SHSW-L":
+                        shellyDevice = new ShellyShswL();
+                        shellyDevice = Newtonsoft.Json.JsonConvert.DeserializeObject<ShellyShswL>(httpResponse);
+                        break;
+                    case "SPEM-003CEBEU":
+                        shellyDevice = new ShellyShswL();
+                        shellyDevice = Newtonsoft.Json.JsonConvert.DeserializeObject<ShellyShswL>(httpResponse);
+                        break;
+
+
                     default:
                         shellyDevice = null;
                         break;
@@ -187,6 +195,7 @@ namespace ShellySharp
                     }
                 });
 
+                this.Hostname = deviceInformation.hostname;
                 this.Type = deviceInformation.type;
                 this.Mac = deviceInformation.mac;
 
